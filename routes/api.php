@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test',function (){
-   return response()->json('api is working',200);
-});
+Route::get('/fetch-banks', [PaymentController::class, 'fetchBanks']);
+Route::post('/resolve-account-number', [PaymentController::class, 'resolveBankAccountNumber']);

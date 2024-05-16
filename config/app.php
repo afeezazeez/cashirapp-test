@@ -18,6 +18,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'default_payment_provider' => env('DEFAULT_PAYMENT_PROVIDER','paystack'),
+
+    'paystack_secret' => env('PAYSTACK_SECRET'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
