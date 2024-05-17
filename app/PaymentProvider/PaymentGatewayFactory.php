@@ -2,49 +2,59 @@
 
 namespace App\PaymentProvider;
 
-use App\Exceptions\ClientErrorException;
+
+use App\Interfaces\PaymentGatewayInterface;
 use App\PaymentProvider\Flutterwave\FlutterwavePaymentGateway;
 use App\PaymentProvider\Paystack\PaystackPaymentGateway;
-use Illuminate\Support\Facades\Log;
+
 
 
 class PaymentGatewayFactory
 {
-    private static $services = [
+    private array $services = [
         'flutterwave' => FlutterwavePaymentGateway::class,
         'paystack' => PaystackPaymentGateway::class,
     ];
 
-    private static $currentProvider = 'flutterwave';
+    private array $usedServices = [];
+
+
+    public string $currentProvider;
+
+    public function __construct()
+    {
+        $this->currentProvider = config('app.default_payment_provider');
+    }
 
     /**
      */
-    public static function getProvider()
+    public  function getProvider(): PaymentGatewayInterface
     {
-        $serviceClass = self::$services[self::$currentProvider];
+        $serviceClass = $this->services[$this->currentProvider];
+
+        $this->usedServices[] = $this->currentProvider;
 
         return new $serviceClass();
     }
 
-    public static function hasNextProvider(): bool
+    public  function hasNextProvider(): bool
     {
-        $keys = array_keys(self::$services);
-        $currentProviderIndex = array_search(self::$currentProvider, $keys);
-        return $currentProviderIndex < count(self::$services)-1;
+        return count($this->usedServices) < count($this->services);
     }
 
-    public static function setNextProvider()
+    public  function setNextProvider(): void
     {
-        $keys = array_keys(self::$services);
-        $currentProviderIndex = array_search(self::$currentProvider, $keys);
-        self::$currentProvider = $keys[$currentProviderIndex+1];
+        $keys = array_keys($this->services);
+        $currentProviderIndex = array_search($this->currentProvider, $keys);
+        $nextProviderIndex = ($currentProviderIndex + 1) % count($this->services);
+        $this->currentProvider = $keys[$nextProviderIndex];
     }
 
-    public static function getNextProvider()
+    public  function getNextProvider(): string
     {
-        $keys = array_keys(self::$services);
-        $currentProviderIndex = array_search(self::$currentProvider, $keys);
-        Log::info("current provider index: ".$currentProviderIndex);
-        return $keys[$currentProviderIndex+1];
+        $keys = array_keys($this->services);
+        $currentProviderIndex = array_search($this->currentProvider, $keys);
+        $nextProviderIndex = ($currentProviderIndex + 1) % count($this->services);
+        return $keys[$nextProviderIndex];
     }
 }
