@@ -18,9 +18,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'default_payment_provider' => env('DEFAULT_PAYMENT_PROVIDER','paystack'),
+    'default_payment_provider' => env('DEFAULT_PAYMENT_PROVIDER','flutterwave'),
 
     'paystack_secret' => env('PAYSTACK_SECRET'),
+
+    'flutterwave_secret' => env('FLUTTERWAVE_SECRET'),
 
 
     /*

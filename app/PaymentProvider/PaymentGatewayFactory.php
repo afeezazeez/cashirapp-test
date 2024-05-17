@@ -42,6 +42,14 @@ class PaymentGatewayFactory
         return count($this->usedServices) < count($this->services);
     }
 
+    public  function getNextProvider(): string
+    {
+        $keys = array_keys($this->services);
+        $currentProviderIndex = array_search($this->currentProvider, $keys);
+        $nextProviderIndex = ($currentProviderIndex + 1) % count($this->services);
+        return $keys[$nextProviderIndex];
+    }
+
     public  function setNextProvider(): void
     {
         $keys = array_keys($this->services);
@@ -50,11 +58,5 @@ class PaymentGatewayFactory
         $this->currentProvider = $keys[$nextProviderIndex];
     }
 
-    public  function getNextProvider(): string
-    {
-        $keys = array_keys($this->services);
-        $currentProviderIndex = array_search($this->currentProvider, $keys);
-        $nextProviderIndex = ($currentProviderIndex + 1) % count($this->services);
-        return $keys[$nextProviderIndex];
-    }
+
 }
