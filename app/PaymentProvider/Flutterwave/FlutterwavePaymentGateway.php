@@ -13,16 +13,22 @@ class FlutterwavePaymentGateway  implements PaymentGatewayInterface
     protected  string $apiUrl = 'https://api.flutterwave.com/v3';
 
 
+    /**
+     * @throws ClientErrorException
+     */
     public function fetchBanks()
     {
         return $this->makeRequest('GET', $this->apiUrl.'/banks/NG');
     }
 
+    /**
+     * @throws ClientErrorException
+     */
     public function resolveBankAccountNumber($data)
     {
         $data['account_bank']  = $data['bank_code'];
-        $response = $this->makeRequest('POST', $this->apiUrl.'/accounts/resolve', Arr::except($data, ['bank_code']));
-        dd($response);
+        return $this->makeRequest('POST', $this->apiUrl.'/accounts/resolve', Arr::except($data, ['bank_code']));
+
     }
 
     /**

@@ -23,7 +23,7 @@ class PaymentService
     {
         return $this->handlePaymentRequest(
             function ($exception) {
-                return 'Unable to fetch banks. Please try again later';
+                return 'Unable to fetch bank. Please try again later';
             },
             function ($provider) {
                 return $provider->fetchBanks();
@@ -39,7 +39,7 @@ class PaymentService
     {
         return $this->handlePaymentRequest(
             function ($exception) {
-                return 'Unable to resolve banks. Please try again later';
+                return 'Unable to resolve bank. Please try again later';
             },
             function ($provider) use ($data) {
                 return $provider->resolveBankAccountNumber($data);
