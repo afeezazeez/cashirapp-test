@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/fetch-banks', [PaymentController::class, 'fetchBanks']);
 Route::post('/resolve-account-number', [PaymentController::class, 'resolveBankAccountNumber']);
+Route::get('/transactions', [TransactionController::class, 'index']);

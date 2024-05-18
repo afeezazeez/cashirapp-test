@@ -24,6 +24,8 @@ return [
 
     'flutterwave_secret' => env('FLUTTERWAVE_SECRET'),
 
+    'default_pagination_size' => env('DEFAULT_PAGINATION_SIZE'),
+
 
     /*
     |--------------------------------------------------------------------------
