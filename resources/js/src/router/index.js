@@ -1,20 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
-
-        path: '/',
-        name: 'Home',
-        component: () => import('../pages/Dashboard.vue')
-    }
+        path: "/",
+        name: "Layout",
+        component: () => import("../components/Layout.vue"),
+        children: [
+            {
+                path: "",
+                name: "Home",
+                component: () => import("../pages/Dashboard.vue"),
+            },
+        ],
+    },
 ];
 
 const router = createRouter({
-
     history: createWebHistory(),
-
-    routes
-
+    routes,
 });
 
 export default router;
