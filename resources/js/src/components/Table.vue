@@ -35,7 +35,7 @@
             </table>
             <div
                 v-if="data.length === 0"
-                className="w-full bg-white h-[200px] py-10 flex items-center justify-center text-base lg:text-lg font-semibold tracking-wider"
+                class="w-full bg-white h-[200px] py-10 flex items-center justify-center text-base lg:text-lg font-semibold tracking-wider"
             >
                 <span v-if="loading">Loading...</span>
                 <span v-else>Nothing to see yet</span>
@@ -50,7 +50,7 @@
                 :page="pagination.current_page"
                 :per_page="pagination.per_page"
                 :total_pages="pagination.total_pages"
-                @change="(p) => $emit('php', p)"
+                @change="(p) => $emit('pageChange', p)"
             />
         </div>
     </div>

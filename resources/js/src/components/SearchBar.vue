@@ -19,7 +19,7 @@ export default {
         return {
             text: "",
             timeout: null,
-            delay: 1000,
+            delay: 700,
         };
     },
     components: { Search },

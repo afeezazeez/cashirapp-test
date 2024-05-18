@@ -4,9 +4,9 @@
     <div>
         <div class="flex">
             <div class="flex-grow">
-                <search-bar @onDebounced="(v) => console.log(v)" />
+                <search-bar @onDebounced="(v) => search(v)" />
             </div>
-            <filter-dropdown @filterChange="(f) => console.log(f)" />
+            <filter-dropdown @filterChange="(f) => filterChange(f)" />
         </div>
         <div>
             <custom-table
@@ -15,7 +15,7 @@
                 :columns="columns"
                 :loading="loading"
                 :pagination="{ per_page, current_page, total_pages }"
-                @pageChange="(p) => console.log(p)"
+                @pageChange="pageChange"
             />
         </div>
     </div>
@@ -25,37 +25,66 @@
 import CustomTable from "../components/Table.vue";
 import SearchBar from "../components/SearchBar.vue";
 import FilterDropdown from "../components/FilterDropdown.vue";
+import axios from "axios";
 
-const columns = [{ key: "ref", title: "Ref" },{ key: "description", title: "Description" }];
-const data = [
-    { ref: "ref-1", description: "Title One" },
-    { ref: "ref-2", description: "Title Two" },
-    { ref: "ref-3", description: "Title Three" },
-    { ref: "ref-4", description: "Title Four" },
-    { ref: "ref-5", description: "Title Five" },
-    { ref: "ref-6", description: "Title Six" },
-    { ref: "ref-7", description: "Title Seven" },
-    { ref: "ref-1", description: "Title One" },
-    { ref: "ref-2", description: "Title Two" },
-    { ref: "ref-3", description: "Title Three" },
-    { ref: "ref-4", description: "Title Four" },
+const columns = [
+    { key: "reference", title: "Reference" },
+    { key: "description", title: "Description" },
+    { key: "amount", title: "Amount" },
+    { key: "status", title: "Status" },
+    { key: "date", title: "Date" },
+    { key: "type", title: "Transaction type" },
 ];
+
 export default {
     name: "",
     data() {
         return {
             loading: false,
-            data,
+            data: [],
             columns,
             current_page: 1,
-            per_page: 10,
-            total_pages: 100,
+            per_page: 15,
+            total_pages: 0,
+            query: "",
+            filter: "",
+
         };
     },
     components: {
         CustomTable,
         SearchBar,
         FilterDropdown,
+    },
+    mounted() {
+        this.fetchData();
+    },
+    methods: {
+        async fetchData(page = 1) {
+            try {
+                const response = await axios.get(`/transactions?page=${page}&query=${this.query}&filter=${this.filter}`);
+                const { data:{data,current_page, per_page, last_page} } = response.data;
+                this.data = data;
+                this.current_page = current_page;
+                this.per_page = per_page;
+                this.total_pages = last_page;
+            } catch (error) {
+                console.error(error);
+            } finally {
+                this.loading = false;
+            }
+        },
+        pageChange(page) {
+            this.fetchData(page);
+        },
+        search(query) {
+            this.query = query;
+            this.fetchData(1);
+        },
+        filterChange(filter) {
+            this.filter = filter;
+            this.fetchData(1);
+        },
     },
 };
 </script>

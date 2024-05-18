@@ -40,9 +40,10 @@
 import { ChevronDown } from "lucide-vue-next";
 
 const options = [
-    { id: "daily", label: "Today's Transactions" },
-    { id: "mothly", label: "This Month's Transactions" },
-    { id: "yearly", label: "This Year's Transactions" },
+    { id: "", label: "All Transactions" },
+    { id: "day", label: "Today's Transactions" },
+    { id: "month", label: "This Month's Transactions" },
+    { id: "year", label: "This Year's Transactions" },
 ];
 export default {
     name: "FilterDropdown",

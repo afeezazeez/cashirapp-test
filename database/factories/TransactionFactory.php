@@ -19,13 +19,19 @@ class TransactionFactory extends Factory
         $startDate = now()->subYears(2);
         $endDate = now();
 
+        $amount =  $this->faker->randomFloat(2, 0, 1000);
+
+        $transaction_type = $this->faker->randomElement(['transfer', 'withdrawal', 'deposit']);
+
+        $description = ucfirst($transaction_type) . ' of $' . $amount . ' was initialized';
+
         return [
             'uuid' => $this->faker->uuid(),
             'reference' => $this->faker->unique()->regexify('[A-Z0-9]{8}'),
-            'type' => $this->faker->randomElement(['transfer', 'withdrawal', 'deposit']),
-            'description' => $this->faker->sentence(),
+            'type' =>  $transaction_type,
+            'description' => $description,
             'status' => $this->faker->randomElement(['pending', 'successful', 'failed']),
-            'amount' => $this->faker->randomFloat(2, 0, 1000),
+            'amount' => $amount,
             'date' => $this->faker->dateTimeBetween($startDate, $endDate)->format('Y-m-d'),
 
         ];

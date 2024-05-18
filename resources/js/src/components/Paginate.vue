@@ -103,6 +103,7 @@ export default {
             </template>
 
             <paginate-button
+                :active="page === total_pages"
                 :id="total_pages.toString()"
                 @change="(e) => $emit('change', e)"
                 >{{ total_pages }}</paginate-button

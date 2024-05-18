@@ -25,8 +25,14 @@ class TransactionController extends Controller
      */
     public function index(): JsonResponse
     {
+        $meta = [
+          'page_size' => $this->page_size,
+          'query' => request('query') ?? null,
+          'filter' => request('filter') ?? null
+        ];
 
-        $transactions = $this->transactionService->getTransactions($this->page_size);
+        $transactions = $this->transactionService->getTransactions($meta);
+
         return successResponse(TransactionResource::collection($transactions)->resource);
     }
 
