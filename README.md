@@ -66,7 +66,7 @@ VITE_API_URL=http://localhost:8000/api/
 
 ### LARAVEL INSTALLATION
 Install the dependencies and start the server and run app setup command.
-Also Seeder was set up for Hmos. Hmos can be seeded into database  using
+Also Seeder was set up for Transactions. Transactions can be seeded into database  using
 `php artisan db:seed` as stated below
 
 ```console
