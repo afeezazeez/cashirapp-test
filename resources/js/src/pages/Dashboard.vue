@@ -1,6 +1,5 @@
 <template>
     <h1 class="font-bold text-xl mb-5">Transactions</h1>
-
     <div>
         <div class="flex">
             <div class="flex-grow">
@@ -61,6 +60,7 @@ export default {
     },
     methods: {
         async fetchData(page = 1) {
+            this.loading = true;
             try {
                 const response = await axios.get(`/transactions?page=${page}&query=${this.query}&filter=${this.filter}`);
                 const { data:{data,current_page, per_page, last_page} } = response.data;
