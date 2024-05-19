@@ -46,6 +46,17 @@
                 </tbody>
             </table>
         </div>
+        <div
+            v-if="pagination.total_pages > 1"
+            class="flex items-center justify-center py-3"
+        >
+            <paginate
+                :page="pagination.current_page"
+                :per_page="pagination.per_page"
+                :total_pages="pagination.total_pages"
+                @change="(p) => $emit('pageChange', p)"
+            />
+        </div>
     </div>
 </template>
 <script>
