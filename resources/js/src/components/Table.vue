@@ -47,7 +47,7 @@
             </table>
         </div>
         <div
-            v-if="pagination.total_pages > 1"
+            v-if="pagination.total_pages > 1 && !loading"
             class="flex items-center justify-center py-3"
         >
             <paginate
