@@ -21,6 +21,7 @@ class PaymentController extends Controller
 
     /**
      * fetch banks
+     * @throws ClientErrorException
      */
     public function fetchBanks(): JsonResponse
     {
@@ -30,6 +31,7 @@ class PaymentController extends Controller
 
     /**
      * resolve bank account number
+     * @throws ClientErrorException
      */
     public function resolveBankAccountNumber(ResolveAccountRequest $request): JsonResponse
     {

@@ -36,7 +36,9 @@ class PaystackPaymentGateway implements PaymentGatewayInterface
             if ($response->successful()) {
                 return $response->json()['data'];
             } else {
-                throw new ClientErrorException("Request failed with code: ".$response->status());
+                $error = $response->json();
+                $message = $error['message'] ?? " ";
+                throw new ClientErrorException("Request failed with code: ".$response->status(). " and message : " .$message);
             }
         } catch (\Exception $exception) {
             Log::error("[Paystack Payment Gateway] Request failed with error: ".$exception->getMessage());
