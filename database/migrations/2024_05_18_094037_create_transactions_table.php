@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->uuid('ueui');
+            $table->uuid('udeui');
             $table->string('reference')->unique();
             $table->string('type');
             $table->string('description');
