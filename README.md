@@ -95,18 +95,3 @@ $ composer test
 
 ### POSTMAN API DOCUMENTATION
 The postman documentation for the API can be found- https://documenter.getpostman.com/view/9428869/2sA3QmCu1C#57b6f9b0-1f36-4171-bbbd-91c9d235c570
-
-
-## Programming Decisions, Assumptions, and Suggestions
-
-### Simplified Implementation for Testing
-- To keep it simple, the initial implementation includes fetching banks and resolving account numbers. These endpoints were chosen to test the payment gateway implementation and the auto-switch functionality.
-
-### Specific Scope for Fetching Banks
-- The Flutterwave fetch banks API was scoped specifically to Nigeria for this test. This helps to limit the scope and simplify the testing process.
-
-### Configurable Default Provider
-- For the test, the default payment provider can be set in the .env file. However, in a real-world scenario, this setting could be stored in the database to allow for dynamic updates without needing to change environment files.
-
-### Transaction Data Seedin
-- For the purpose of displaying transaction reports, the transaction data was seeded in the database. No real transfer operations were implemented, making it easier to test and demonstrate the functionality of the transaction dashboard.
